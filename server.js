@@ -6,8 +6,6 @@ const { URL } = require("url");
 
 const ROOT = __dirname;
 const PORT = Number(process.env.PORT || 4173);
-const TOKYO_BOUNDS = "35.55,139.55|35.817,139.93";
-
 const apiKey = resolveApiKey();
 
 if (!apiKey) {
@@ -34,8 +32,6 @@ const server = http.createServer(async (req, res) => {
 
       const geocodeUrl = new URL("https://maps.googleapis.com/maps/api/geocode/json");
       geocodeUrl.searchParams.set("address", query);
-      geocodeUrl.searchParams.set("region", "jp");
-      geocodeUrl.searchParams.set("bounds", TOKYO_BOUNDS);
       geocodeUrl.searchParams.set("language", "en");
       geocodeUrl.searchParams.set("key", apiKey);
 
@@ -79,7 +75,6 @@ const server = http.createServer(async (req, res) => {
             addressQuery: query,
           },
           languageCode: "en",
-          regionCode: "JP",
         },
       });
 

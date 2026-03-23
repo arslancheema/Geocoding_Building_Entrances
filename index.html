@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tokyo Building Outline Demo</title>
+    <title>Building Outline Demo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,7 +17,7 @@
       <header class="hero">
         <div class="hero-copy">
           <div class="hero-topbar">
-            <p class="eyebrow" data-i18n="heroEyebrow">Tokyo Comparison Demo</p>
+            <p class="eyebrow" data-i18n="heroEyebrow">Place Comparison Demo</p>
             <label class="language-picker">
               <span data-i18n="languageLabel">Language</span>
               <select id="languageSelect" aria-label="Language selector">
@@ -31,7 +31,7 @@
             <p class="hero-text">
               <span data-i18n="heroText">
                 Side-by-side view of standard geocoding versus the enhanced destination
-                result for Tokyo places.
+                result for any searchable place.
               </span>
             </p>
           </div>
@@ -40,13 +40,14 @@
 
       <section class="control-panel">
         <label class="field query-field">
-          <span data-i18n="queryLabel">Tokyo place or address</span>
+          <span data-i18n="queryLabel">Search place or address</span>
           <input
             id="queryInput"
             type="text"
-            value="Shibuya Scramble Square, Tokyo, Japan"
+            value="Tokyo Skytree, Tokyo, Japan"
             data-i18n-placeholder="queryPlaceholder"
-            placeholder="Example: Tokyo Skytree, Tokyo, Japan"
+            placeholder="Example: Eiffel Tower, Paris, France"
+            autocomplete="off"
           />
         </label>
 
@@ -77,16 +78,8 @@
 
         <div class="status-strip">
           <div id="statusMessage" class="status-message">
-            Local server ready. Run a Tokyo place search.
+            Local server ready. Search any place or address.
           </div>
-          <a
-            class="doc-link"
-            href="https://developers.google.com/maps/documentation/geocoding/building-attributes"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Building outlines doc
-          </a>
         </div>
       </section>
 

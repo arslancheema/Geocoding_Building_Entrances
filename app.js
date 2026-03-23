@@ -1,10 +1,4 @@
 const TOKYO_CENTER = { lat: 35.6762, lng: 139.6503 };
-const TOKYO_BOUNDS = {
-  north: 35.817,
-  south: 35.55,
-  east: 139.93,
-  west: 139.55,
-};
 
 const els = {
   queryInput: document.querySelector("#queryInput"),
@@ -33,17 +27,18 @@ const state = {
   locale: window.localStorage.getItem("gmp-demo-locale") || "en",
   lastBasicData: null,
   lastEnhancedData: null,
+  hasAutoRun: false,
 };
 
 const translations = {
   en: {
-    heroEyebrow: "Tokyo Comparison Demo",
+    heroEyebrow: "Place Comparison Demo",
     languageLabel: "Language",
     heroTitle: "Geocoding API: Building outlines and entrances",
     heroText:
-      "Side-by-side view of standard geocoding versus the enhanced destination result for Tokyo places.",
-    queryLabel: "Tokyo place or address",
-    queryPlaceholder: "Example: Tokyo Skytree, Tokyo, Japan",
+      "Side-by-side view of standard geocoding versus the enhanced destination result for any searchable place.",
+    queryLabel: "Search place or address",
+    queryPlaceholder: "Example: Eiffel Tower, Paris, France",
     runButton: "Run comparison",
     resetButton: "Reset map",
     presetLabel: "Tokyo presets",
@@ -64,24 +59,24 @@ const translations = {
     coverageTitle: "Coverage note",
     coverageText:
       "Google notes that coverage varies by region and place type. If one Tokyo preset returns no entrances, try another preset or a street-level address.",
-    statusReady: "Local server ready. Run a Tokyo place search.",
-    statusReset: "Ready for another Tokyo comparison.",
-    statusSearching: 'Looking up "{query}" in Tokyo and drawing both versions...',
-    statusEmptyQuery: "Enter a Tokyo place or address to compare.",
+    statusReady: "Local server ready. Search any place or address.",
+    statusReset: "Ready for another comparison.",
+    statusSearching: 'Looking up "{query}" and drawing both versions...',
+    statusEmptyQuery: "Enter a place or address to compare.",
     statusNoEnhanced:
       "The enhanced request completed, but this place returned no building outlines or entrances. Try another Tokyo preset or a street-level address.",
     statusEnhanced:
       "Enhanced request returned {buildings} building outline set(s), {entrances} entrance(s), and {preferred} preferred entrance(s).",
     overlayBasicTitle: "Map loads after you run a query",
     overlayBasicText:
-      "This pane will show the standard geocode marker and viewport for the Tokyo search.",
+      "This pane will show the standard geocode marker and viewport for the selected search.",
     overlayEnhancedTitle: "Enhanced map loads after you run a query",
     overlayEnhancedText:
       "This pane will show the building footprint and entrance points returned by the server-side Google API call.",
     overlayErrorTitle: "Request error",
     summaryBaselineTitle: "Baseline view",
     summaryBaselineText:
-      "Run a Tokyo query to show the standard geocoding result here.",
+      "Run a place search to show the standard geocoding result here.",
     summaryEnhancedTitle: "Enhanced view",
     summaryEnhancedText:
       "Run the same query with building attributes enabled to draw outlines and entrances here.",
@@ -103,13 +98,13 @@ const translations = {
     unavailable: "Unavailable",
   },
   ja: {
-    heroEyebrow: "東京比較デモ",
+    heroEyebrow: "場所比較デモ",
     languageLabel: "言語",
     heroTitle: "Geocoding API: 建物外形と入口",
     heroText:
-      "東京の場所について、標準ジオコーディングと拡張された目的地結果を左右で比較できます。",
-    queryLabel: "東京の場所または住所",
-    queryPlaceholder: "例: Tokyo Skytree, Tokyo, Japan",
+      "任意の場所について、標準ジオコーディングと拡張された目的地結果を左右で比較できます。",
+    queryLabel: "場所または住所を検索",
+    queryPlaceholder: "例: Eiffel Tower, Paris, France",
     runButton: "比較を実行",
     resetButton: "地図をリセット",
     presetLabel: "東京プリセット",
@@ -130,24 +125,24 @@ const translations = {
     coverageTitle: "カバレッジ",
     coverageText:
       "Google によると、建物外形と入口の対応状況は地域や場所タイプによって異なります。入口が出ない場合は別の東京プリセットや詳細な住所を試してください。",
-    statusReady: "ローカルサーバーの準備ができました。東京の場所を検索してください。",
-    statusReset: "次の東京比較の準備ができました。",
-    statusSearching: "東京で「{query}」を検索し、両方の結果を描画しています...",
-    statusEmptyQuery: "比較する東京の場所または住所を入力してください。",
+    statusReady: "ローカルサーバーの準備ができました。場所または住所を検索してください。",
+    statusReset: "次の比較の準備ができました。",
+    statusSearching: "「{query}」を検索し、両方の結果を描画しています...",
+    statusEmptyQuery: "比較する場所または住所を入力してください。",
     statusNoEnhanced:
       "拡張リクエストは完了しましたが、この場所では建物外形または入口が返されませんでした。別の東京プリセットや詳細な住所を試してください。",
     statusEnhanced:
       "拡張リクエストの結果: 建物外形 {buildings} 件、入口 {entrances} 件、推奨入口 {preferred} 件。",
     overlayBasicTitle: "検索後に地図を表示します",
     overlayBasicText:
-      "このペインには、東京検索の標準ジオコードのマーカーとビューポートが表示されます。",
+      "このペインには、選択した検索結果の標準ジオコードのマーカーとビューポートが表示されます。",
     overlayEnhancedTitle: "検索後に拡張地図を表示します",
     overlayEnhancedText:
       "このペインには、サーバー経由の Google API が返した建物外形と入口ポイントが表示されます。",
     overlayErrorTitle: "リクエストエラー",
     summaryBaselineTitle: "ベースライン表示",
     summaryBaselineText:
-      "東京の検索を実行すると、ここに標準ジオコーディング結果が表示されます。",
+      "場所の検索を実行すると、ここに標準ジオコーディング結果が表示されます。",
     summaryEnhancedTitle: "拡張表示",
     summaryEnhancedText:
       "同じ検索を拡張属性付きで実行し、建物外形と入口をここに表示します。",
@@ -173,6 +168,7 @@ const translations = {
 els.presetButtons.forEach((button) => {
   button.addEventListener("click", () => {
     els.queryInput.value = button.dataset.query || "";
+    void runComparison();
   });
 });
 
@@ -205,6 +201,19 @@ els.languageSelect.addEventListener("change", () => {
 els.languageSelect.value = state.locale;
 applyTranslations();
 renderIdleState();
+window.addEventListener("load", () => {
+  if (!state.hasAutoRun) {
+    state.hasAutoRun = true;
+    void runComparison();
+  }
+});
+
+els.queryInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    void runComparison();
+  }
+});
 
 async function runComparison() {
   const query = els.queryInput.value.trim();
@@ -275,10 +284,6 @@ function initializeMapsIfNeeded() {
     mapTypeControl: false,
     streetViewControl: false,
     fullscreenControl: false,
-    restriction: {
-      latLngBounds: TOKYO_BOUNDS,
-      strictBounds: false,
-    },
   });
 
   state.enhancedMap = new state.maps.Map(els.enhancedMap, {
@@ -287,10 +292,6 @@ function initializeMapsIfNeeded() {
     mapTypeControl: false,
     streetViewControl: false,
     fullscreenControl: false,
-    restriction: {
-      latLngBounds: TOKYO_BOUNDS,
-      strictBounds: false,
-    },
   });
 
   state.sharedInfoWindow = new state.maps.InfoWindow();

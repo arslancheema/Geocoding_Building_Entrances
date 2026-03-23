@@ -1,15 +1,15 @@
 :root {
-  --bg: #f3efe7;
-  --panel: rgba(255, 251, 245, 0.9);
-  --panel-strong: #fffdf9;
+  --bg: #f4f7f9;
+  --panel: rgba(255, 255, 255, 0.94);
+  --panel-strong: #ffffff;
   --ink: #1f2a34;
   --muted: #5f6c75;
   --line: rgba(31, 42, 52, 0.12);
-  --accent: #e4602f;
-  --accent-soft: rgba(228, 96, 47, 0.12);
-  --teal: #0f8c83;
-  --teal-soft: rgba(15, 140, 131, 0.12);
-  --shadow: 0 22px 60px rgba(57, 43, 24, 0.12);
+  --accent: #b33a36;
+  --accent-soft: rgba(179, 58, 54, 0.12);
+  --teal: #2a9d8f;
+  --teal-soft: rgba(42, 157, 143, 0.12);
+  --shadow: 0 22px 60px rgba(32, 55, 72, 0.12);
 }
 
 * {
@@ -21,9 +21,10 @@ body {
   margin: 0;
   min-height: 100%;
   background:
-    radial-gradient(circle at top left, rgba(228, 96, 47, 0.16), transparent 28%),
-    radial-gradient(circle at top right, rgba(15, 140, 131, 0.12), transparent 24%),
-    linear-gradient(180deg, #f8f4ee 0%, var(--bg) 100%);
+    linear-gradient(180deg, #7f2526 0, #7f2526 8px, transparent 8px),
+    radial-gradient(circle at top left, rgba(143, 41, 43, 0.24), transparent 28%),
+    radial-gradient(circle at top right, rgba(143, 41, 43, 0.16), transparent 24%),
+    linear-gradient(180deg, #f3e6e6 0%, #e9eff3 100%);
   color: var(--ink);
   font-family: "IBM Plex Sans", sans-serif;
 }
@@ -174,6 +175,7 @@ h3 {
   transform: translateY(-1px);
 }
 
+
 .button-row {
   display: flex;
   gap: 12px;
@@ -201,9 +203,9 @@ button:disabled {
 }
 
 .primary-button {
-  background: linear-gradient(135deg, #ee6d39, #cc4a1c);
+  background: linear-gradient(135deg, #c94a44, #9f302d);
   color: white;
-  box-shadow: 0 12px 28px rgba(204, 74, 28, 0.28);
+  box-shadow: 0 12px 28px rgba(159, 48, 45, 0.28);
 }
 
 .ghost-button,
@@ -292,8 +294,8 @@ button:disabled {
   border-radius: 22px;
   overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(15, 140, 131, 0.07), rgba(228, 96, 47, 0.03)),
-    #e7ecef;
+    linear-gradient(180deg, rgba(42, 157, 143, 0.06), rgba(179, 58, 54, 0.03)),
+    #ecf2f4;
 }
 
 .map-overlay {
