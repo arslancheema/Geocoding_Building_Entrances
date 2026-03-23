@@ -1,0 +1,12 @@
+{
+  "name": "tokyo-geocoding-building-outline-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Side-by-side Tokyo demo for standard geocoding versus building outlines and entrances.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
