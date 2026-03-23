@@ -279,13 +279,13 @@ button:disabled {
 }
 
 .panel-badge.subtle {
-  background: var(--teal-soft);
-  color: var(--teal);
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
 .panel-badge.loud {
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--teal-soft);
+  color: var(--teal);
 }
 
 .map-canvas {
