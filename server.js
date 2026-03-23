@@ -174,7 +174,8 @@ function normalizeLocation(location) {
 
 function serveStatic(req, res, pathname) {
   const safePath = pathname === "/" ? "/index.html" : pathname;
-  const filePath = path.join(ROOT, path.normalize(safePath));
+  const relativePath = safePath.replace(/^\/+/, "");
+  const filePath = path.resolve(ROOT, relativePath);
   if (!filePath.startsWith(ROOT)) {
     res.writeHead(403);
     res.end("Forbidden");
@@ -183,6 +184,7 @@ function serveStatic(req, res, pathname) {
 
   fs.readFile(filePath, (error, data) => {
     if (error) {
+      console.error(`Static file not found: ${filePath}`);
       res.writeHead(404);
       res.end("Not found");
       return;
