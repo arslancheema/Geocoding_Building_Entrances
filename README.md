@@ -48,7 +48,7 @@ The easiest path is Railway or Render.
 Set these values in the hosting dashboard:
 
 - Start command: `npm start`
-- Environment variable: `GOOGLE_MAPS_API_KEY=AIzaSyDRS9N2tJyoBUVOUEklad-mBIIhWpZNBZw`
+- Environment variable: `GOOGLE_MAPS_API_KEY=YOUR_API_KEY`
 
 After deployment, restrict that production key to your deployed URL in Google Cloud.
 
